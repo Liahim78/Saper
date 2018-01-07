@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.ViewModels
 {
-  interface IContext
+  public class SimpleViewModel : IViewModel
   {
   }
 }

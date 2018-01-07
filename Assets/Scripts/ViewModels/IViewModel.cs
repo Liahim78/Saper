@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.ViewModels
 {
-  public interface IState
+  public interface IViewModel
   {
   }
 }
