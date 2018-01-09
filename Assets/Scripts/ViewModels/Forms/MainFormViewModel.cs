@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Views;
+﻿using Assets.Scripts.Models;
+using Assets.Scripts.Views;
 using UnityEngine;
 
 namespace Assets.Scripts.ViewModels
@@ -7,6 +8,7 @@ namespace Assets.Scripts.ViewModels
   {
     public void Play()
     {
+      AppModel.CreateGame(20, 20, 50);
       AppViewModel.AppView.OpenForm(FormType.PlayForm);
     }
   }

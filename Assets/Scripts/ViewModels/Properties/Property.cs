@@ -24,7 +24,7 @@ namespace Assets.Scripts.ViewModels.Properties
 
     public void Set(T value)
     {
-      if (!value.Equals(Value))
+      if (!value.Equals(Value) && OnChange != null)
         OnChange(this, new BindingArgs<T>(value));
       this.value = value;
     }

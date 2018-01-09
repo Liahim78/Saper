@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -27,6 +28,7 @@ namespace Assets.Scripts.Models
           gameZone[i, j] = SetCountBombsAround(i, j);
         }
       }
+      RefreshViewModel();
     }
 
     private static int SetCountBombsAround(int i, int j)
@@ -39,7 +41,7 @@ namespace Assets.Scripts.Models
       if (i - 1 >= 0 && j + 1 < gameZone.GetLength(1) && gameZone[i - 1, j + 1] == -1) countAround++;
       if (j + 1 < gameZone.GetLength(1) && gameZone[i, j + 1] == -1) countAround++;
       if (i + 1 < gameZone.GetLength(0) && gameZone[i + 1, j] == -1) countAround++;
-      if (i + 1 >= gameZone.GetLength(0) && j + 1 < gameZone.GetLength(1) && gameZone[i + 1, j + 1] == -1) countAround++;
+      if (i + 1 < gameZone.GetLength(0) && j + 1 < gameZone.GetLength(1) && gameZone[i + 1, j + 1] == -1) countAround++;
       return countAround;
     }
 
@@ -55,6 +57,15 @@ namespace Assets.Scripts.Models
         if (gameZone[i, j] == -1)
           continue;
         gameZone[i, j] = -1;
+        bombs++;
+      }
+    }
+
+    private static void RefreshViewModel()
+    {
+      foreach (var item in AppViewModel.RefreshableViewModels)
+      {
+        item.Refresh();
       }
     }
   }

@@ -19,7 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224521796955960072}
-  - component: {fileID: 114801556321565950}
+  - component: {fileID: 114206827712622930}
+  - component: {fileID: 114529588025174152}
   m_Layer: 5
   m_Name: Field
   m_TagString: Untagged
@@ -45,6 +46,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114206827712622930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1390319207707094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69d2906fca21ae45a1df9d5d7dc3269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathX: SizeX
+  PathY: SizeY
+--- !u!114 &114529588025174152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1390319207707094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c43c3e9f6cdaf468b4a896db75a56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PathList: CellItems
+  Prefab: {fileID: 1687589408780400, guid: 02bdb4a595f1de14c80a04dac2479416, type: 2}
 --- !u!114 &114795200819946130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,29 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67af70465b44fe45b4c2771e9e47b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114801556321565950
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1390319207707094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 130, y: 130}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!114 &114842393361812754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,10 +129,10 @@ RectTransform:
   m_Father: {fileID: 224931679143450416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1080}
+  m_SizeDelta: {x: 1080, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224931679143450416
 RectTransform:
