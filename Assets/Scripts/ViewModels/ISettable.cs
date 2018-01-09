@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Views
+namespace Assets.Scripts.ViewModels
 {
-  public enum FormType
+  public interface ISettable<T>
   {
-    MainForm,
-    PlayForm
+    void Set(T value);
   }
 }

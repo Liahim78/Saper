@@ -10,13 +10,7 @@ namespace Assets.Scripts.Views.Components
 
     public void Event()
     {
-      var current = transform;
-      var view = current.GetComponent<IView>();
-      while (view == null && current.parent != null)
-      {
-        current = current.parent;
-        view = current.GetComponent<IView>();
-      }
+      var view = FindObjectOfType<AppView>().GetView(transform);
       MethodInfo mi = view.ViewModel.GetType().GetMethod(Path);
       mi.Invoke(view.ViewModel, new object[0]);
     }
