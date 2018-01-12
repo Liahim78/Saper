@@ -7,5 +7,6 @@ namespace Assets.Scripts.ViewModels
 {
   public interface IViewModel
   {
+    void OnDestroy();
   }
 }

@@ -6,10 +6,6 @@ namespace Assets.Scripts.ViewModels.Properties
   {
     T Value { get; }
 
-    event EventHandler OnChange;
-
-    void Bind(IProperty<T> property);
-
-    void Binding(object sender, EventArgs e);
+    event Action OnChange;
   }
 }

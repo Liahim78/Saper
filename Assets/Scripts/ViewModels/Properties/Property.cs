@@ -8,26 +8,21 @@ namespace Assets.Scripts.ViewModels.Properties
 
     public T Value { get { return value; } }
 
-    public event EventHandler OnChange;
-
-    public void Bind(IProperty<T> property)
-    {
-      value = property.Value;
-      property.OnChange += Binding;
-      OnChange += property.Binding;
-    }
-
-    public void Binding(object sender, EventArgs e)
-    {
-      value = ((BindingArgs<T>)e).Value;
-    }
+    public event Action OnChange;
+    
 
     public void Set(T value)
     {
       if (!value.Equals(Value) && OnChange != null)
-        OnChange(this, new BindingArgs<T>(value));
+        OnChange();
       this.value = value;
     }
     
+    public void Invoke()
+    {
+      if (OnChange != null)
+        OnChange();
+    }
+
   }
 }

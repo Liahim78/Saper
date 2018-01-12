@@ -7,5 +7,8 @@ namespace Assets.Scripts.ViewModels
 {
   public class SimpleViewModel : IViewModel
   {
+    public void OnDestroy()
+    {
+    }
   }
 }

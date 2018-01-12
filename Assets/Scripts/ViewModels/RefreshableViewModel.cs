@@ -4,7 +4,7 @@
   {
     public RefreshableViewModel()
     {
-      AppViewModel.RefreshableViewModels.Add(this);
+      AppViewModel.AddRefresh(this);
       Initialize();
       Refresh();
     }
@@ -23,5 +23,11 @@
     {
 
     }
+
+    public void OnDestroy()
+    {
+      AppViewModel.RemoveRefresh(this);
+    }
+
   }
 }

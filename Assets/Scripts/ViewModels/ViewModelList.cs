@@ -20,7 +20,7 @@ namespace Assets.Scripts.ViewModels
       return list.GetEnumerator();
     }
     
-    public void Set(IEnumerable<R> list)
+    public void Set(IList<R> list)
     {
       this.list.Clear();
       foreach (var item in list)

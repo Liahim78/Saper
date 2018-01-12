@@ -8,7 +8,7 @@ namespace Assets.Scripts.ViewModels
   {
     public void Play()
     {
-      AppModel.CreateGame(20, 20, 50);
+      AppModel.CreateGame(8, 8, 10);
       AppViewModel.AppView.OpenForm(FormType.PlayForm);
     }
   }

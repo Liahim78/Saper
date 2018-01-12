@@ -30,7 +30,7 @@ namespace Assets.Scripts.ViewModels.Forms
       {
         X = index % AppModel.XSize,
         Y = index / AppModel.XSize
-      }));
+      }).ToList());
       AllFlagCount.Set(AppModel.AllBombs);
       FlagCount.Set(AppModel.Flags.Count);
     }
