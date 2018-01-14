@@ -1,25 +1,50 @@
-﻿using System;
+﻿using Assets.Scripts.ViewModels;
+using Assets.Scripts.Views.Popups;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Models
 {
-  public class User 
+  public class User
   {
     private Wrapper<int>[,] gameZone;
     private Wrapper<bool>[,] openedZone;
-    public readonly Dictionary<int, int> Flags = new Dictionary<int, int>();
-    public int AllBombs;
-    public int XSize;
-    public int YSize;
+    private int openedCount = 0;
+    public Flags Flags = new Flags();
+    public Wrapper<int> AllBombs = new Wrapper<int>();
+    public Wrapper<int> XSize = new Wrapper<int>();
+    public Wrapper<int> YSize = new Wrapper<int>();
+    public Wrapper<bool> FlagMode = new Wrapper<bool>(false);
 
     private bool _setBombs = false;
-    
+
     public event Action<User> OnChange;
+
+    public DateTime StartTime;
+
+    private DateTime? finishGame;
+
+    public DateTime FinishTime
+    {
+      get
+      {
+        if (finishGame.HasValue)
+          return finishGame.Value;
+        return DateTime.Now;
+      }
+    }
+
 
     public void CreateGame(int sizeX, int sizeY, int bombsCount)
     {
+      openedCount = 0;
+      _setBombs = false;
+      finishGame = null;
+      Flags.Clear();
+      FlagMode.Value = false;
+      StartTime = DateTime.Now;
       gameZone = new Wrapper<int>[sizeY, sizeX];
       openedZone = new Wrapper<bool>[sizeY, sizeX];
       for (int i = 0; i < sizeY; i++)
@@ -30,9 +55,9 @@ namespace Assets.Scripts.Models
           openedZone[i, j] = new Wrapper<bool>(false);
         }
       }
-      XSize = sizeX;
-      YSize = sizeY;
-      AllBombs = bombsCount;
+      XSize.Value = sizeX;
+      YSize.Value = sizeY;
+      AllBombs.Value = bombsCount;
       Change();
     }
 
@@ -54,12 +79,21 @@ namespace Assets.Scripts.Models
 
     public void Click(int x, int y)
     {
+      if (FlagMode.Value)
+      {
+        var point = new Point(y, x);
+        if (Flags.Contains(point))
+          Flags.Remove(point);
+        else
+          Flags.Add(point);
+        return;
+      }
       if (!_setBombs)
       {
-        SetBombs(AllBombs, x, y);
+        SetBombs(AllBombs.Value, x, y);
         for (int i = 0; i < gameZone.GetLength(0); i++)
           for (int j = 0; j < gameZone.GetLength(1); j++)
-            gameZone[i,j].Value = SetCountBombsAround(i, j);
+            gameZone[i, j].Value = SetCountBombsAround(i, j);
       }
       NextClick(x, y);
       _setBombs = true;
@@ -74,6 +108,20 @@ namespace Assets.Scripts.Models
       if (openedZone[y, x].Value == true)
         return;
       openedZone[y, x].Value = true;
+      openedCount++;
+      var point = new Point(y, x);
+      if (Flags.Contains(point))
+        Flags.Remove(point);
+      if (gameZone[y, x].Value == -1)
+      {
+        FinishGame();
+        AppViewModel.AppView.OpenPopup(PopupType.LoseGamePopup);
+      }
+      else if (openedCount > XSize.Value * YSize.Value - AllBombs.Value)
+      {
+        FinishGame();
+        AppViewModel.AppView.OpenPopup(PopupType.WinGamePopup);
+      }
       if (gameZone[y, x].Value == 0)
       {
         NextClick(x, y - 1);
@@ -117,6 +165,11 @@ namespace Assets.Scripts.Models
         gameZone[i, j].Value = -1;
         bombs++;
       }
+    }
+
+    public void FinishGame()
+    {
+      finishGame = DateTime.Now;
     }
 
   }

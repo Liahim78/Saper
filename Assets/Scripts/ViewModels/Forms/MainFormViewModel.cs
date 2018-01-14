@@ -12,5 +12,10 @@ namespace Assets.Scripts.ViewModels
       new CreateGameCmd(8,8,10).Execute();
       AppViewModel.AppView.OpenForm(FormType.PlayForm);
     }
+
+    public void Records()
+    {
+      AppViewModel.AppView.OpenForm(FormType.RecordsForm);
+    }
   }
 }

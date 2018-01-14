@@ -20,7 +20,6 @@ namespace Assets.Scripts.Views
 
     public void Set(IViewModel viewModel)
     {
-      Debug.Log("Set " + viewModel.ToString());
       _viewModel = viewModel;
       if (OnChange != null)
         OnChange();

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Views
+namespace Assets.Scripts.Views.Popups
 {
-  public enum FormType
+  public enum PopupType
   {
-    MainForm,
-    PlayForm,
-    RecordsForm
+    LoseGamePopup,
+    WinGamePopup
   }
 }

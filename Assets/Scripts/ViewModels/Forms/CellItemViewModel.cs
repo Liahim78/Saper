@@ -2,6 +2,7 @@
 using Assets.Scripts.Models;
 using Assets.Scripts.Models.Commands;
 using Assets.Scripts.ViewModels.Properties;
+using Assets.Scripts.Views.Popups;
 
 namespace Assets.Scripts.ViewModels.Forms
 {
@@ -30,7 +31,9 @@ namespace Assets.Scripts.ViewModels.Forms
     private int y;
 
     public Property<int> IconIndex = new Property<int>();
-    public Property<bool> IsAlreadyOpened = new Property<bool>();
+    public Property<bool> Disable = new Property<bool>();
+    public Property<bool> Count = new Property<bool>();
+    public Property<bool> Flag = new Property<bool>();
     public CellItemViewModel():base(true)
     {
 
@@ -47,12 +50,16 @@ namespace Assets.Scripts.ViewModels.Forms
     {
       user.GetGameZone(x,y).OnChange += Refresh;
       user.GetOpenedZone(x,y).OnChange += Refresh;
+      user.Flags.OnChange += Refresh;
     }
 
     public override void Refresh(User user)
     {
       IconIndex.Set(user.GetGameZone(x, y).Value);
-      IsAlreadyOpened.Set(user.GetOpenedZone(x, y).Value);
+      Count.Set(user.GetOpenedZone(x, y).Value);
+      var point = new Point(y, x);
+      Disable.Set(!user.GetOpenedZone(x, y).Value && !user.Flags.Contains(point));
+      Flag.Set(!user.GetOpenedZone(x, y).Value && user.Flags.Contains(point));
     }
 
     public void OnClick()

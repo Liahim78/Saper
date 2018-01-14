@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Models;
 using Assets.Scripts.ViewModels;
+using Assets.Scripts.Views.Popups;
 using UnityEngine;
 
 namespace Assets.Scripts.Views
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Views
     }
     public void OpenForm(FormType formType, object state = null)
     {
+      ClosePopup();
       if (OpenedForm != null)
       {
         Destroy(OpenedForm);
@@ -36,6 +38,30 @@ namespace Assets.Scripts.Views
         return;
       }
       OpenedForm = Instantiate(prefab, Form.transform);
+    }
+
+    public void OpenPopup(PopupType popupType, object state = null)
+    {
+      if (OpenedPopup != null)
+      {
+        Destroy(OpenedForm);
+      }
+      var prefab = (GameObject)Resources.Load(@"Popups/" + popupType.ToString(), typeof(GameObject));
+      if (prefab == null)
+      {
+        Debug.LogError("Prefab" + popupType.ToString() + "is null");
+        return;
+      }
+      OpenedPopup = Instantiate(prefab, Popups.transform);
+    }
+
+    public void ClosePopup()
+    {
+      if (OpenedPopup != null)
+      {
+        Destroy(OpenedPopup);
+        OpenedPopup = null;
+      }
     }
 
     public IView GetView(Transform transform)

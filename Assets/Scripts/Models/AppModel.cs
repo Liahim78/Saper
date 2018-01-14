@@ -1,9 +1,5 @@
-﻿
-using Assets.Scripts.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading;
-using UnityEngine;
 
 namespace Assets.Scripts.Models
 {
@@ -24,7 +20,6 @@ namespace Assets.Scripts.Models
 
     private static void Normalization()
     {
-      Debug.Log("Normalize " + DateTime.Now);
       if (OnNormalize != null)
         OnNormalize(user);
       Thread.Sleep(1000);
