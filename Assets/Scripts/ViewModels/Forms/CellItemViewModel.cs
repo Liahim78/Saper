@@ -1,5 +1,6 @@
 ﻿
 using Assets.Scripts.Models;
+using Assets.Scripts.Models.Commands;
 using Assets.Scripts.ViewModels.Properties;
 
 namespace Assets.Scripts.ViewModels.Forms
@@ -29,29 +30,39 @@ namespace Assets.Scripts.ViewModels.Forms
     private int y;
 
     public Property<int> IconIndex = new Property<int>();
-    public Property<int> IsAlreadyOpened = new Property<int>();
+    public Property<bool> IsAlreadyOpened = new Property<bool>();
+    public CellItemViewModel():base(true)
+    {
+
+    }
 
     public void Set(Parametrs parametrs)
     {
       x = parametrs.X;
       y = parametrs.Y;
-      SetValues();
+      OnBegin();
     }
 
-    public override void Refresh()
+    public override void Subscribe(User user)
     {
-      SetValues();
+      user.GetGameZone(x,y).OnChange += Refresh;
+      user.GetOpenedZone(x,y).OnChange += Refresh;
     }
 
-    private void SetValues()
+    public override void Refresh(User user)
     {
-      IconIndex.Set(AppModel.GetGameZone(x, y));
-      IsAlreadyOpened.Set(AppModel.GetOpenedZone(x,y)?1:0);
+      IconIndex.Set(user.GetGameZone(x, y).Value);
+      IsAlreadyOpened.Set(user.GetOpenedZone(x, y).Value);
     }
 
     public void OnClick()
     {
-      AppModel.OnClick(x, y);
+      new ClickCmd(x, y).Execute();
+    }
+
+    public bool Equal(Parametrs parametrs)
+    {
+      return x == parametrs.X && y == parametrs.Y;
     }
   }
 }

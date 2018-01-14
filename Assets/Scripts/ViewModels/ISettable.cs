@@ -8,5 +8,7 @@ namespace Assets.Scripts.ViewModels
   public interface ISettable<T>
   {
     void Set(T value);
+
+    bool Equal(T parametrs);
   }
 }

@@ -5,32 +5,46 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.ViewModels
 {
-  public class ViewModelList<T, R> : IEnumerable<T>, IEnumerable, IEvent where T : ISettable<R>, IViewModel, new()
+  public class ViewModelList<T, R> : Property<List<IViewModel>> where T : ISettable<R>, IViewModel, new()
   {
-    public event Action OnChange;
+    public override event Action OnChange;
 
-    private readonly List<T> list = new List<T>();
-    public IEnumerator<T> GetEnumerator()
+    private readonly List<IViewModel> list = new List<IViewModel>();
+
+    public override List<IViewModel> Value
     {
-      return list.GetEnumerator();
+      get
+      {
+        return list;
+      }
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return list.GetEnumerator();
-    }
-    
     public void Set(IList<R> list)
     {
-      this.list.Clear();
+      if (Equals(list))
+        return;
+      Value.Clear();
       foreach (var item in list)
       {
         var viewModel = new T();
         viewModel.Set(item);
-        this.list.Add(viewModel);
+        Value.Add(viewModel);
       }
       if (OnChange!= null)
         OnChange();
+    }
+
+    private bool Equals(IList<R> list)
+    {
+      if (list.Count != this.list.Count)
+        return false;
+      var result = true;
+      for (int i = 0; i < this.list.Count; i++)
+      {
+        if (!this.list[i].Equals(list[i]))
+          return false;
+      }
+      return result;
     }
   }
 }

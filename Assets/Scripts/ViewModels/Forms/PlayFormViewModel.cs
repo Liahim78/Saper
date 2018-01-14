@@ -17,25 +17,31 @@ namespace Assets.Scripts.ViewModels.Forms
 
     private DateTime StartTime;
 
-    public override void Initialize()
+    public override void Subscribe(User user)
+    {
+      user.OnChange += Refresh;
+      AppModel.OnNormalize += Normolize;
+    }
+
+    public override void Instantiate(User user)
     {
       StartTime = DateTime.Now;
     }
 
-    public override void Refresh()
+    public override void Refresh(User user)
     {
-      SizeX.Set(AppModel.XSize);
-      SizeY.Set(AppModel.YSize);
-      CellItems.Set((new int[AppModel.XSize * AppModel.YSize]).Select((i, index) => new CellItemViewModel.Parametrs()
+      SizeX.Set(user.XSize);
+      SizeY.Set(user.YSize);
+      CellItems.Set((new int[user.XSize * user.YSize]).Select((i, index) => new CellItemViewModel.Parametrs()
       {
-        X = index % AppModel.XSize,
-        Y = index / AppModel.XSize
+        X = index % user.XSize,
+        Y = index / user.XSize
       }).ToList());
-      AllFlagCount.Set(AppModel.AllBombs);
-      FlagCount.Set(AppModel.Flags.Count);
+      AllFlagCount.Set(user.AllBombs);
+      FlagCount.Set(user.Flags.Count);
     }
 
-    public override void RefreshOnNormilize()
+    public override void Normolize(User user)
     {
       Timer.Set((DateTime.Now - StartTime).ToString());
     }

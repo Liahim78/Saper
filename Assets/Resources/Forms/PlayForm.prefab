@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c43c3e9f6cdaf468b4a896db75a56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathList: CellItems
+  Path: CellItems
   Prefab: {fileID: 1687589408780400, guid: 02bdb4a595f1de14c80a04dac2479416, type: 2}
 --- !u!114 &114795200819946130
 MonoBehaviour:

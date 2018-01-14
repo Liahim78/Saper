@@ -8,6 +8,7 @@ namespace Assets.Scripts.Views
 {
   public interface IView
   {
+    event Action OnChange;
     IViewModel ViewModel { get; }
   }
 }

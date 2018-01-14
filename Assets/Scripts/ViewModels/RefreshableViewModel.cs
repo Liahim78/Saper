@@ -1,33 +1,48 @@
-﻿namespace Assets.Scripts.ViewModels
+﻿using Assets.Scripts.Models;
+
+namespace Assets.Scripts.ViewModels
 {
-  public class RefreshableViewModel : IViewModel
+  public class RefreshableViewModel : SimpleViewModel, IRefreshableViewModel
   {
-    public RefreshableViewModel()
+    public RefreshableViewModel():
+      this(false)
     {
-      AppViewModel.AddRefresh(this);
-      Initialize();
-      Refresh();
+    }
+    public RefreshableViewModel(bool flag)
+    {
+      if (flag)
+        return;
+      OnBegin();
     }
 
-    public virtual void Initialize()
+    protected void OnBegin()
+    {
+      User user = AppModel.GetUser();
+      Instantiate(user);
+      Subscribe(user);
+      Refresh(user);
+    }
+
+    public virtual void Refresh(User user)
     {
 
     }
-
-    public virtual void Refresh()
-    {
-
-    }
-
-    public virtual void RefreshOnNormilize()
-    {
-
-    }
-
-    public void OnDestroy()
+    
+    public override void OnDestroy()
     {
       AppViewModel.RemoveRefresh(this);
     }
 
+    public virtual void Instantiate(User user)
+    {
+    }
+
+    public virtual void Subscribe(User user)
+    {
+    }
+
+    public virtual void Normolize(User user)
+    {
+    }
   }
 }

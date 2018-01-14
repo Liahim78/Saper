@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.ViewModels;
+﻿using Assets.Scripts.Models;
+using Assets.Scripts.ViewModels;
 using UnityEngine;
 
 namespace Assets.Scripts.Views
@@ -47,6 +48,11 @@ namespace Assets.Scripts.Views
         view = current.GetComponent<IView>();
       }
       return view;
+    }
+
+    private void OnDestroy()
+    {
+      AppModel.NormalizationThread.Abort();
     }
   }
 }
