@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.ViewModels;
 using UnityEngine;
+using Assets.Scripts.Models;
 
 namespace Assets.Scripts.Views
 {
@@ -23,6 +24,13 @@ namespace Assets.Scripts.Views
       _viewModel = viewModel;
       if (OnChange != null)
         OnChange();
+    }
+
+    void OnDestroy()
+    {
+      var refreshViewModel = _viewModel as IRefreshableViewModel;
+      if (refreshViewModel != null)
+        refreshViewModel.Unsubscribe(AppModel.GetUser());
     }
   }
 }

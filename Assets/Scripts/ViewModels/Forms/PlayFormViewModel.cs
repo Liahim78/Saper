@@ -25,6 +25,14 @@ namespace Assets.Scripts.ViewModels.Forms
       AppModel.OnNormalize += Normolize;
     }
 
+    public override void Unsubscribe(User user)
+    {
+      user.OnChange -= Refresh;
+      user.FlagMode.OnChange -= SetFlagMode;
+      user.Flags.OnChange -= SetFlagCount;
+      AppModel.OnNormalize -= Normolize;
+    }
+
     public override void Refresh(User user)
     {
       SizeX.Set(user.XSize.Value);

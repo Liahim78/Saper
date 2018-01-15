@@ -53,6 +53,13 @@ namespace Assets.Scripts.ViewModels.Forms
       user.Flags.OnChange += Refresh;
     }
 
+    public override void Unsubscribe(User user)
+    {
+      user.GetGameZone(x, y).OnChange -= Refresh;
+      user.GetOpenedZone(x, y).OnChange -= Refresh;
+      user.Flags.OnChange -= Refresh;
+    }
+
     public override void Refresh(User user)
     {
       IconIndex.Set(user.GetGameZone(x, y).Value);

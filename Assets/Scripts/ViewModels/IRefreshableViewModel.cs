@@ -12,5 +12,7 @@ namespace Assets.Scripts.ViewModels
     void Subscribe(User user);
     void Refresh(User user);
     void Normolize(User user);
+
+    void Unsubscribe(User user);
   }
 }

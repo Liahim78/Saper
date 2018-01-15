@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.Models;
-using Assets.Scripts.Models.Commands;
+﻿using Assets.Scripts.Models.Commands;
 using Assets.Scripts.Views;
-using UnityEngine;
+using Assets.Scripts.Views.Popups;
 
 namespace Assets.Scripts.ViewModels
 {
@@ -9,8 +8,7 @@ namespace Assets.Scripts.ViewModels
   {
     public void Play()
     {
-      new CreateGameCmd(8,8,10).Execute();
-      AppViewModel.AppView.OpenForm(FormType.PlayForm);
+      AppViewModel.AppView.OpenPopup(PopupType.ChooseDificultPopup);
     }
 
     public void Records()

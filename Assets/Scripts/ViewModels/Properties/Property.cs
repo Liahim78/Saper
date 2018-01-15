@@ -1,6 +1,5 @@
 ﻿using System;
 using Assets.Scripts.Views.Bindings;
-using UnityEditor.iOS.Xcode;
 
 namespace Assets.Scripts.ViewModels.Properties
 {

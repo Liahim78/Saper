@@ -13,6 +13,7 @@ namespace Assets.Scripts.Models
     private Wrapper<bool>[,] openedZone;
     private int openedCount = 0;
     public Flags Flags = new Flags();
+    public List<Record> Records = new List<Record>();
     public Wrapper<int> AllBombs = new Wrapper<int>();
     public Wrapper<int> XSize = new Wrapper<int>();
     public Wrapper<int> YSize = new Wrapper<int>();
@@ -36,6 +37,17 @@ namespace Assets.Scripts.Models
       }
     }
 
+    public User()
+    {
+      SetRecords();
+    }
+
+    private void SetRecords()
+    {
+      Records.Add(new Record("Misha", TimeSpan.FromMinutes(2)));
+      Records.Add(new Record("Anton", TimeSpan.FromMinutes(3)));
+      Records.Add(new Record("Petya", TimeSpan.FromMinutes(4)));
+    }
 
     public void CreateGame(int sizeX, int sizeY, int bombsCount)
     {
@@ -84,7 +96,7 @@ namespace Assets.Scripts.Models
         var point = new Point(y, x);
         if (Flags.Contains(point))
           Flags.Remove(point);
-        else
+        else if (Flags.Count < AllBombs.Value)
           Flags.Add(point);
         return;
       }
@@ -117,7 +129,7 @@ namespace Assets.Scripts.Models
         FinishGame();
         AppViewModel.AppView.OpenPopup(PopupType.LoseGamePopup);
       }
-      else if (openedCount > XSize.Value * YSize.Value - AllBombs.Value)
+      else if (openedCount >= XSize.Value * YSize.Value - AllBombs.Value)
       {
         FinishGame();
         AppViewModel.AppView.OpenPopup(PopupType.WinGamePopup);

@@ -8,6 +8,7 @@ namespace Assets.Scripts.Views.Popups
   public enum PopupType
   {
     LoseGamePopup,
-    WinGamePopup
+    WinGamePopup,
+    ChooseDificultPopup
   }
 }

@@ -44,5 +44,8 @@ namespace Assets.Scripts.ViewModels
     public virtual void Normolize(User user)
     {
     }
+    public virtual void Unsubscribe(User user)
+    {
+    }
   }
 }

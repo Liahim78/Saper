@@ -12,10 +12,11 @@ namespace Assets.Scripts.ViewModels.Forms
   public class WinGameViewModel : RefreshableViewModel
   {
     public readonly Property<string> Time = new Property<string>();
-    public readonly Property<string> Score = new Property<string>();
+    public readonly Property<string> Name = new Property<string>();
 
     public void Back()
     {
+      new AddRecordCmd(Name.Value).Execute();
       new FinishGameCmd().Execute();
       AppViewModel.AppView.OpenForm(FormType.MainForm);
     }
@@ -24,7 +25,6 @@ namespace Assets.Scripts.ViewModels.Forms
     {
       Time.Set((user.FinishTime - user.StartTime).ToString());
       var rand = new Random();
-      Score.Set(string.Format("{0}:{1}:{2}", rand.Next(10), rand.Next(10), rand.Next(10)));
       base.Refresh(user);
     }
   }
