@@ -91,9 +91,9 @@ namespace Assets.Scripts.Models
 
     public void Click(int x, int y)
     {
+      var point = new Point(y, x);
       if (FlagMode.Value)
       {
-        var point = new Point(y, x);
         if (Flags.Contains(point))
           Flags.Remove(point);
         else if (Flags.Count < AllBombs.Value)
@@ -106,9 +106,11 @@ namespace Assets.Scripts.Models
         for (int i = 0; i < gameZone.GetLength(0); i++)
           for (int j = 0; j < gameZone.GetLength(1); j++)
             gameZone[i, j].Value = SetCountBombsAround(i, j);
+        _setBombs = true;
       }
+      if (Flags.Contains(point))
+        return;
       NextClick(x, y);
-      _setBombs = true;
     }
 
     private void NextClick(int x, int y)

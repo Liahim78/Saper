@@ -19,7 +19,8 @@ namespace Assets.Scripts.Views.Components
 
     protected override void OnStart()
     {
-      CachedGameObj.AddComponent<GridLayoutGroup>();
+      var grid = CachedGameObj.AddComponent<GridLayoutGroup>();
+      grid.childAlignment = TextAnchor.MiddleCenter;
       base.OnStart();
     }
 
@@ -47,8 +48,9 @@ namespace Assets.Scripts.Views.Components
     {
       var rectTransform = gameObject.GetComponent<RectTransform>();
       var grid = CachedGameObj.GetComponent<GridLayoutGroup>();
+      var size = Math.Min(rectTransform.rect.width / _getterSizeX(), rectTransform.rect.height / _getterSizeY());
       if (grid != null)
-        grid.cellSize = new Vector2(rectTransform.sizeDelta.x / _getterSizeX(), rectTransform.sizeDelta.y / _getterSizeY());
+        grid.cellSize = new Vector2(size, size);
       base.OnChange();
     }
   }
